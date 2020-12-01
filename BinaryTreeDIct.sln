@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinaryTreeDIct", "BinaryTreeDIct\BinaryTreeDIct.csproj", "{32A8283E-DBFF-45E1-A00E-B289A0A6C5E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestTreeDict", "TestTreeDict\TestTreeDict.csproj", "{4A1D5D61-5AAC-4ABE-9D32-C0506EE5A178}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{32A8283E-DBFF-45E1-A00E-B289A0A6C5E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32A8283E-DBFF-45E1-A00E-B289A0A6C5E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32A8283E-DBFF-45E1-A00E-B289A0A6C5E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32A8283E-DBFF-45E1-A00E-B289A0A6C5E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A1D5D61-5AAC-4ABE-9D32-C0506EE5A178}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A1D5D61-5AAC-4ABE-9D32-C0506EE5A178}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A1D5D61-5AAC-4ABE-9D32-C0506EE5A178}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A1D5D61-5AAC-4ABE-9D32-C0506EE5A178}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8CEB9ADD-0007-47A0-8063-46EF86899598}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,7 @@
+C:\Users\aobor\source\repos\BinaryTreeDIct\BinaryTreeDIct\bin\Debug\BinaryTreeDIct.exe.config
+C:\Users\aobor\source\repos\BinaryTreeDIct\BinaryTreeDIct\bin\Debug\BinaryTreeDIct.exe
+C:\Users\aobor\source\repos\BinaryTreeDIct\BinaryTreeDIct\bin\Debug\BinaryTreeDIct.pdb
+C:\Users\aobor\source\repos\BinaryTreeDIct\BinaryTreeDIct\obj\Debug\BinaryTreeDIct.csprojAssemblyReference.cache
+C:\Users\aobor\source\repos\BinaryTreeDIct\BinaryTreeDIct\obj\Debug\BinaryTreeDIct.csproj.CoreCompileInputs.cache
+C:\Users\aobor\source\repos\BinaryTreeDIct\BinaryTreeDIct\obj\Debug\BinaryTreeDIct.exe
+C:\Users\aobor\source\repos\BinaryTreeDIct\BinaryTreeDIct\obj\Debug\BinaryTreeDIct.pdb
