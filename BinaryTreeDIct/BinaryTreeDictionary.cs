@@ -101,11 +101,13 @@ namespace BinaryTreeDIct
             left = null;
             rigth = null;
             Head = true;
+            key = default;
+            value = default;
         }
 
         public bool Contains(KeyValuePair<Tkey, Tvalue> item)
         {
-            if (!Keys.Contains(key))
+            if (!Keys.Contains(item.Key))
                 return false;
             else
             {
@@ -148,7 +150,7 @@ namespace BinaryTreeDIct
         {
             if (!Keys.Contains(key))
             {
-                value = default(Tvalue);
+                value = default;
                 return false;
             }
             else

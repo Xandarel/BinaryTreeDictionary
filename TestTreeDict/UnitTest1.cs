@@ -55,5 +55,62 @@ namespace TestTreeDict
 
             Assert.AreEqual(3, BTD.Count);
         }
+
+        [TestMethod]
+        public void AddToDict()
+        {
+            var BTD = new BinaryTreeDictionary<int, int>();
+            BTD[0] = 1;
+            BTD.Add(3, 2);
+            BTD.Add(new KeyValuePair<int, int>(5, 11));
+
+            Assert.AreEqual(2, BTD[3]);
+            Assert.AreEqual(11, BTD[5]);
+        }
+
+        [TestMethod]
+        public void ClearDict()
+        {
+            var BTD = new BinaryTreeDictionary<int, int>();
+            BTD[0] = 1;
+            BTD.Add(3, 2);
+            BTD.Add(new KeyValuePair<int, int>(5, 11));
+            BTD.Clear();
+            Assert.AreEqual(default, BTD[default]);
+        }
+
+        [TestMethod]
+        public void ContainDict()
+        {
+            var BTD = new BinaryTreeDictionary<int, int>();
+            BTD[0] = 1;
+            BTD.Add(3, 2);
+            BTD.Add(new KeyValuePair<int, int>(5, 11));
+            Assert.AreEqual(false, BTD.Contains(new KeyValuePair<int, int>(77, 88)));
+            Assert.AreEqual(false, BTD.Contains(new KeyValuePair<int, int>(3, 11)));
+            Assert.AreEqual(true, BTD.Contains(new KeyValuePair<int, int>(3, 2)));
+        }
+        [TestMethod]
+        public void ContainsKeyDict()
+        {
+            var BTD = new BinaryTreeDictionary<int, int>();
+            BTD[0] = 1;
+            BTD.Add(3, 2);
+            BTD.Add(new KeyValuePair<int, int>(5, 11));
+            Assert.AreEqual(true, BTD.ContainsKey(5));
+            Assert.AreEqual(false, BTD.ContainsKey(77));
+        }
+        [TestMethod]
+        public void TryGetValueDict()
+        {
+            var BTD = new BinaryTreeDictionary<int, int>();
+            BTD[0] = 1;
+            BTD.Add(3, 2);
+            BTD.Add(new KeyValuePair<int, int>(5, 11));
+            var number = 5;
+
+            Assert.AreEqual(false, BTD.TryGetValue(77, out number));
+            Assert.AreEqual(true, BTD.TryGetValue(0, out number));
+        }
     }
 }
