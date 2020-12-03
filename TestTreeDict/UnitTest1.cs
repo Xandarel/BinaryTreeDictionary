@@ -112,5 +112,18 @@ namespace TestTreeDict
             Assert.AreEqual(false, BTD.TryGetValue(77, out number));
             Assert.AreEqual(true, BTD.TryGetValue(0, out number));
         }
+
+        [TestMethod]
+        public void EnumeratorDict()
+        {
+            var BTD = new BinaryTreeDictionary<int, int>();
+            BTD[0] = 1;
+            BTD.Add(3, 2);
+            BTD.Add(new KeyValuePair<int, int>(5, 11));
+            foreach (var btd in BTD)
+            {
+            }
+            Assert.AreEqual(true, true);
+        }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 
 namespace BinaryTreeDIct
 {
@@ -89,8 +91,7 @@ namespace BinaryTreeDIct
 
         public int Count => Keys.Count;
 
-        //TODO: Спросить на паре
-        public bool IsReadOnly => throw new NotImplementedException();
+        public bool IsReadOnly => false;
 
         public void Add(Tkey key, Tvalue value) => this[key] = value;
 
@@ -129,7 +130,11 @@ namespace BinaryTreeDIct
 
         public IEnumerator<KeyValuePair<Tkey, Tvalue>> GetEnumerator()
         {
-            throw new NotImplementedException();
+            var res = new Dictionary<Tkey, Tvalue>();
+            foreach (var k in Keys)
+                res[k] = this[k];
+            return res.GetEnumerator();
+            
         }
 
         //TODO: Спросить на паре
@@ -159,10 +164,38 @@ namespace BinaryTreeDIct
                 return true;
             }
         }
-        //TODO: Вспомнить как это делать
-        IEnumerator IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        /// <summary>
+        /// Чтение из файла. Данные в файле должны иметь следующий формат:
+        /// ключ: значение
+        /// </summary>
+        /// <param name="filename">имя файла</param>
+        public void ReadFile(string filename)
         {
-            throw new NotImplementedException();
+            using (var fstream = new StreamReader(filename, Encoding.GetEncoding(1251)))
+            {
+                string s;
+                while ((s = fstream.ReadLine()) != null)
+                {
+                    var sKey = (object)s.Split(':')[0];
+                    var sValue = (object)s.Split(':')[1];
+                    this[(Tkey)sKey] = (Tvalue)sValue;
+                }
+            }
+        }
+        /// <summary>
+        /// Запись в файл.Данные в файле будут иметь следующий формат:
+        /// ключ: значение
+        /// </summary>
+        /// <param name="filename">имя файла</param>
+        public void LoadFile(string filename)
+        {
+            using (StreamWriter w = new StreamWriter(filename, false, Encoding.GetEncoding(1251)))
+            {
+                foreach (var k in Keys)
+                    w.WriteLine($"{k}: {this[k]}");
+            }
         }
     }
 }
