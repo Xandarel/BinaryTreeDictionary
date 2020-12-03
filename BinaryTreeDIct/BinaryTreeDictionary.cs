@@ -137,18 +137,87 @@ namespace BinaryTreeDIct
             
         }
 
-        //TODO: Спросить на паре
         public bool Remove(Tkey key)
         {
             if (!Keys.Contains(key))
                 return false;
-
+            if (Count == 0)
+                return false;
+            if (key.Equals(this.key))
+            {
+                if (left == null && rigth == null) // Нет левого и правого дерева
+                {
+                    key = default;
+                    value = default;
+                }
+                else if (left == null && rigth != null) // Только правое
+                {
+                    this.key = rigth.key;
+                    value = rigth.value;
+                    left = rigth.left;
+                    rigth = rigth.rigth;
+                }
+                else if (left != null && rigth == null) // Только левое
+                {
+                    this.key = left.key;
+                    value = left.value;
+                    left = left.left;
+                    rigth = left.rigth;
+                }
+                else // Есть обе ветки
+                {
+                    var newElement = _FindLeftElement(rigth);
+                    if (newElement.rigth == null)
+                    {
+                        this.key = newElement.key;
+                        value = newElement.value;
+                        var father = _FindFather(key, this); 
+                        father.left = null;
+                    }
+                    else
+                    {
+                        this.key = newElement.key;
+                        value = newElement.value;
+                        var father = _FindFather(key, this);
+                        father.left = newElement.rigth;
+                    }
+                }
+            }
+            else if (this.key.CompareTo(key) < 0)
+                left.Remove(key);
+            else
+                rigth.Remove(key);
             return true;
         }
-        //TODO: Спросить на паре
+        private BinaryTreeDictionary<Tkey, Tvalue> _FindFather(Tkey branchKey, BinaryTreeDictionary<Tkey, Tvalue> tree)
+        {
+            if (tree.left.key.Equals(branchKey) || tree.rigth.key.Equals(branchKey))
+                return tree;
+            else if (tree.key.CompareTo(key) < 0)
+                _FindFather(branchKey, left);
+            else
+                _FindFather(branchKey, rigth);
+            return tree;
+        }
+        private BinaryTreeDictionary<Tkey, Tvalue> _FindLeftElement(BinaryTreeDictionary<Tkey, Tvalue> tree)
+        {
+            var res = tree;
+            while (res.left != null)
+            {
+                res = res.left;              
+            }
+            return res;
+        }
+
         public bool Remove(KeyValuePair<Tkey, Tvalue> item)
         {
-            throw new NotImplementedException();
+            if (!Keys.Contains(item.Key))
+                return false;
+            if (this[item.Key].Equals(item.Value))
+                return false;
+            if (Count == 0)
+                return false;
+            return Remove(item.Key);
         }
 
         public bool TryGetValue(Tkey key, out Tvalue value)
