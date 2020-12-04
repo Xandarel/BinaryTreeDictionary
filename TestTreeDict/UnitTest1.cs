@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BinaryTreeDIct;
 using System.Collections.Generic;
+using Moq;
 
 namespace TestTreeDict
 {
@@ -24,12 +25,12 @@ namespace TestTreeDict
             BTD[-1] = 0;
             var key = new List<int>();
             foreach (var k in BTD.Keys)
+            {
+                Console.WriteLine(k);
                 key.Add(k);
-            var assertList = new List<int>() { 0, -1, 10 };
-            // Не знаю почему, но если подвать в сравнение список и список выдовалась ошибка
-            //Сбой Assert.AreEqual.Ожидается: < System.Collections.Generic.List`1[System.Int32] >.
-            //Фактически:                     < System.Collections.Generic.List`1[System.Int32] >.
-            Assert.AreEqual(assertList.ToString(), key.ToString());
+            }
+            var assertList = new List<int>() { 0, 10, -1 };
+            CollectionAssert.AreEqual(assertList, key);
         }
         [TestMethod]
         public void GetValues()
@@ -124,6 +125,23 @@ namespace TestTreeDict
             {
             }
             Assert.AreEqual(true, true);
+        }
+
+        [TestMethod]
+        public void FeadFile()
+        {
+            var file = "aaa";
+            var BTD = new Mock<IReader>();
+            BTD.Setup(a => a.ReadFile(file)).Returns("1:11 2:34");
+            Assert.AreEqual("1:11 2:34", BTD.Object.ReadFile(file));
+        }
+        [TestMethod]
+        public void LoadFile()
+        {
+            var file = "aaa";
+            var BTD = new Mock<IReader>();
+            BTD.Setup(a => a.LoadFile(file)).Returns("1:11 2:34");
+            Assert.AreEqual("1:11 2:34", BTD.Object.LoadFile(file));
         }
     }
 }

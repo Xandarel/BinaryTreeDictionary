@@ -6,19 +6,25 @@ using System.Text;
 
 namespace BinaryTreeDIct
 {
-    public class BinaryTreeDictionary<Tkey, Tvalue> : IDictionary<Tkey,Tvalue>
+    public interface IReader
+    {
+        string LoadFile(string filename);
+        string ReadFile(string filename);
+    }
+
+    public class BinaryTreeDictionary<Tkey, Tvalue> : IDictionary<Tkey,Tvalue>, IReader
         where Tkey : IComparable<Tkey>
     {
         private BinaryTreeDictionary<Tkey, Tvalue> left, rigth;
         Tkey key;
         Tvalue value;
-        bool Head;
+        bool FirstElementFlag;
         
         public BinaryTreeDictionary()
         {
             left = null;
             rigth = null;
-            Head = true;
+            FirstElementFlag = true;
         }
 
         public Tvalue this[Tkey key] 
@@ -38,11 +44,11 @@ namespace BinaryTreeDIct
             }
             set 
             {
-                if (Head)
+                if (FirstElementFlag)
                 {
                     this.key = key;
                     this.value = value;
-                    Head = false;
+                    FirstElementFlag = false;
                 }
                 else if (this.key.CompareTo(key) < 0)
                     if (left != null)
@@ -101,19 +107,21 @@ namespace BinaryTreeDIct
         {
             left = null;
             rigth = null;
-            Head = true;
+            FirstElementFlag = true;
             key = default;
             value = default;
         }
 
         public bool Contains(KeyValuePair<Tkey, Tvalue> item)
         {
-            if (!Keys.Contains(item.Key))
-                return false;
-            else
+            try
             {
                 var data = this[item.Key];
                 return data.Equals(item.Value);
+            }
+            catch (KeyNotFoundException)
+            {
+                return false;
             }
         }
 
@@ -240,8 +248,9 @@ namespace BinaryTreeDIct
         /// ключ: значение
         /// </summary>
         /// <param name="filename">имя файла</param>
-        public void ReadFile(string filename)
+        public string ReadFile(string filename)
         {
+            var result = "";
             using (var fstream = new StreamReader(filename, Encoding.GetEncoding(1251)))
             {
                 string s;
@@ -249,22 +258,29 @@ namespace BinaryTreeDIct
                 {
                     var sKey = (object)s.Split(':')[0];
                     var sValue = (object)s.Split(':')[1];
+                    result += $"{sKey}:{sValue} ";
                     this[(Tkey)sKey] = (Tvalue)sValue;
                 }
             }
+            return result;
         }
         /// <summary>
         /// Запись в файл.Данные в файле будут иметь следующий формат:
         /// ключ: значение
         /// </summary>
         /// <param name="filename">имя файла</param>
-        public void LoadFile(string filename)
+        public string LoadFile(string filename)
         {
+            var result = "";
             using (StreamWriter w = new StreamWriter(filename, false, Encoding.GetEncoding(1251)))
             {
                 foreach (var k in Keys)
+                {
                     w.WriteLine($"{k}: {this[k]}");
+                    result += $"{k}:{this[k]}";
+                }
             }
+            return result;
         }
     }
 }

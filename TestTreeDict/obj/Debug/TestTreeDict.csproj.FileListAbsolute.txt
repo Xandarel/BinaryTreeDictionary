@@ -18,3 +18,11 @@ C:\Users\aobor\source\repos\BinaryTreeDIct\TestTreeDict\obj\Debug\TestTreeDict.c
 C:\Users\aobor\source\repos\BinaryTreeDIct\TestTreeDict\obj\Debug\TestTreeDict.csproj.CopyComplete
 C:\Users\aobor\source\repos\BinaryTreeDIct\TestTreeDict\obj\Debug\TestTreeDict.dll
 C:\Users\aobor\source\repos\BinaryTreeDIct\TestTreeDict\obj\Debug\TestTreeDict.pdb
+C:\Users\aobor\source\repos\BinaryTreeDIct\TestTreeDict\bin\Debug\Castle.Core.dll
+C:\Users\aobor\source\repos\BinaryTreeDIct\TestTreeDict\bin\Debug\Moq.dll
+C:\Users\aobor\source\repos\BinaryTreeDIct\TestTreeDict\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\aobor\source\repos\BinaryTreeDIct\TestTreeDict\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\aobor\source\repos\BinaryTreeDIct\TestTreeDict\bin\Debug\Castle.Core.xml
+C:\Users\aobor\source\repos\BinaryTreeDIct\TestTreeDict\bin\Debug\Moq.xml
+C:\Users\aobor\source\repos\BinaryTreeDIct\TestTreeDict\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\aobor\source\repos\BinaryTreeDIct\TestTreeDict\bin\Debug\System.Threading.Tasks.Extensions.xml
