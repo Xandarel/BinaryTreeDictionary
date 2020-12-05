@@ -8,11 +8,44 @@ namespace BinaryTreeDIct
 {
     public interface IReader
     {
-        string LoadFile(string filename);
+        string LoadFile<TKey,TValue>(string filename, IDictionary<TKey, TValue> dictionary);
         string ReadFile(string filename);
     }
 
-    public class BinaryTreeDictionary<Tkey, Tvalue> : IDictionary<Tkey,Tvalue>, IReader
+    public class FileReaderLoader : IReader
+    {
+        public string LoadFile<TKey, TValue>(string filename, IDictionary<TKey, TValue> dictionary)
+        {
+            var result = "";
+            using (StreamWriter w = new StreamWriter(filename, false, Encoding.GetEncoding(1251)))
+            {
+                foreach (var k in dictionary.Keys)
+                {
+                    w.WriteLine($"{k}:{dictionary[k]} ");
+                    result += $"{k}:{dictionary[k]} ";
+                }
+            }
+            return result;
+        }
+
+        public string ReadFile(string filename)
+        {
+            var result = "";
+            using (var fstream = new StreamReader(filename, Encoding.GetEncoding(1251)))
+            {
+                string s;
+                while ((s = fstream.ReadLine()) != null)
+                {
+                    var sKey = s.Split(':')[0];
+                    var sValue = s.Split(':')[1];
+                    result += $"{sKey}:{sValue} ";
+                }
+            }
+            return result;
+        }
+    }
+
+    public class BinaryTreeDictionary<Tkey, Tvalue> : IDictionary<Tkey,Tvalue>
         where Tkey : IComparable<Tkey>
     {
         private BinaryTreeDictionary<Tkey, Tvalue> left, rigth;
@@ -248,39 +281,26 @@ namespace BinaryTreeDIct
         /// ключ: значение
         /// </summary>
         /// <param name="filename">имя файла</param>
-        public string ReadFile(string filename)
+        public void ReadFile(string filename, IReader reader)
         {
-            var result = "";
-            using (var fstream = new StreamReader(filename, Encoding.GetEncoding(1251)))
+            var text = reader.ReadFile(filename);
+            foreach(var keyValue in text.Split())
             {
-                string s;
-                while ((s = fstream.ReadLine()) != null)
-                {
-                    var sKey = (object)s.Split(':')[0];
-                    var sValue = (object)s.Split(':')[1];
-                    result += $"{sKey}:{sValue} ";
-                    this[(Tkey)sKey] = (Tvalue)sValue;
-                }
+                var Key = (Tkey)Convert.ChangeType(keyValue.Split(':')[0], typeof(Tkey));
+                var Value = Convert.ChangeType(keyValue.Split(':')[1], typeof(Tvalue));
+                Console.WriteLine($"{Key}, {Value}");
+                this[Key] = (Tvalue)Value;
             }
-            return result;
         }
         /// <summary>
         /// Запись в файл.Данные в файле будут иметь следующий формат:
         /// ключ: значение
         /// </summary>
         /// <param name="filename">имя файла</param>
-        public string LoadFile(string filename)
+        public string LoadFile(string filename, IReader loader)
         {
-            var result = "";
-            using (StreamWriter w = new StreamWriter(filename, false, Encoding.GetEncoding(1251)))
-            {
-                foreach (var k in Keys)
-                {
-                    w.WriteLine($"{k}: {this[k]}");
-                    result += $"{k}:{this[k]}";
-                }
-            }
-            return result;
+            var resText = loader.LoadFile(filename, this);
+            return resText;
         }
     }
 }

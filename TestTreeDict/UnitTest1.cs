@@ -130,18 +130,23 @@ namespace TestTreeDict
         [TestMethod]
         public void FeadFile()
         {
-            var file = "aaa";
-            var BTD = new Mock<IReader>();
-            BTD.Setup(a => a.ReadFile(file)).Returns("1:11 2:34");
-            Assert.AreEqual("1:11 2:34", BTD.Object.ReadFile(file));
+            var BTD = new BinaryTreeDictionary<int, int>();
+            var reader = new Mock<IReader>();
+            reader.Setup(a => a.ReadFile(It.IsAny<string>())).Returns("11:22 14:19");
+            BTD.ReadFile("aaa", reader.Object);
+            Assert.AreEqual(22, BTD[11]);
+            Assert.AreEqual(19, BTD[14]);
         }
         [TestMethod]
         public void LoadFile()
         {
-            var file = "aaa";
-            var BTD = new Mock<IReader>();
-            BTD.Setup(a => a.LoadFile(file)).Returns("1:11 2:34");
-            Assert.AreEqual("1:11 2:34", BTD.Object.LoadFile(file));
+            var BTD = new BinaryTreeDictionary<int, int>();
+            BTD[0] = 1;
+            BTD.Add(3, 2);
+            BTD.Add(new KeyValuePair<int, int>(5, 11));
+            var loader = new Mock<IReader>();
+            loader.Setup(a => a.LoadFile(It.IsAny<string>(), It.IsAny<IDictionary<int, int>>())).Returns("1, 11, 2");
+            Assert.AreEqual("1, 11, 2", BTD.LoadFile("aaa", loader.Object));
         }
     }
 }
