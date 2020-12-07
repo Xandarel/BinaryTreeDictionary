@@ -6,44 +6,7 @@ using System.Text;
 
 namespace BinaryTreeDIct
 {
-    public interface IReader
-    {
-        string LoadFile<TKey,TValue>(string filename, IDictionary<TKey, TValue> dictionary);
-        string ReadFile(string filename);
-    }
 
-    public class FileReaderLoader : IReader
-    {
-        public string LoadFile<TKey, TValue>(string filename, IDictionary<TKey, TValue> dictionary)
-        {
-            var result = "";
-            using (StreamWriter w = new StreamWriter(filename, false, Encoding.GetEncoding(1251)))
-            {
-                foreach (var k in dictionary.Keys)
-                {
-                    w.WriteLine($"{k}:{dictionary[k]} ");
-                    result += $"{k}:{dictionary[k]} ";
-                }
-            }
-            return result;
-        }
-
-        public string ReadFile(string filename)
-        {
-            var result = "";
-            using (var fstream = new StreamReader(filename, Encoding.GetEncoding(1251)))
-            {
-                string s;
-                while ((s = fstream.ReadLine()) != null)
-                {
-                    var sKey = s.Split(':')[0];
-                    var sValue = s.Split(':')[1];
-                    result += $"{sKey}:{sValue} ";
-                }
-            }
-            return result;
-        }
-    }
 
     public class BinaryTreeDictionary<Tkey, Tvalue> : IDictionary<Tkey,Tvalue>
         where Tkey : IComparable<Tkey>
@@ -281,10 +244,11 @@ namespace BinaryTreeDIct
         /// ключ: значение
         /// </summary>
         /// <param name="filename">имя файла</param>
+        /// <param name="reader">считыватель файла</param>
         public void ReadFile(string filename, IReader reader)
         {
-            var text = reader.ReadFile(filename);
-            foreach(var keyValue in text.Split())
+            var data = reader.ReadFile(filename);
+            foreach(var keyValue in data.Split())
             {
                 var Key = (Tkey)Convert.ChangeType(keyValue.Split(':')[0], typeof(Tkey));
                 var Value = Convert.ChangeType(keyValue.Split(':')[1], typeof(Tvalue));
@@ -297,6 +261,7 @@ namespace BinaryTreeDIct
         /// ключ: значение
         /// </summary>
         /// <param name="filename">имя файла</param>
+        /// <param name="loader">Загрузчик в файл</param>
         public string LoadFile(string filename, IReader loader)
         {
             var resText = loader.LoadFile(filename, this);

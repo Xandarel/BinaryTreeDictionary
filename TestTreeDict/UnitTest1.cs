@@ -128,7 +128,7 @@ namespace TestTreeDict
         }
 
         [TestMethod]
-        public void FeadFile()
+        public void ReadFile()
         {
             var BTD = new BinaryTreeDictionary<int, int>();
             var reader = new Mock<IReader>();

@@ -44,6 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BinaryTreeDictionary.cs" />
+    <Compile Include="FileReaderLoader.cs" />
+    <Compile Include="IReader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
