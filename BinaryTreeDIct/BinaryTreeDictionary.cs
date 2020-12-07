@@ -241,17 +241,18 @@ namespace BinaryTreeDIct
 
         /// <summary>
         /// Чтение из файла. Данные в файле должны иметь следующий формат:
-        /// ключ: значение
+        /// ключ{separator} значение
         /// </summary>
         /// <param name="filename">имя файла</param>
         /// <param name="reader">считыватель файла</param>
-        public void ReadFile(string filename, IReader reader)
+        /// <param name="separator">разделитель</param>
+        public void ReadFile(string filename, IReader reader, char separator)
         {
             var data = reader.ReadFile(filename);
             foreach(var keyValue in data.Split())
             {
-                var Key = (Tkey)Convert.ChangeType(keyValue.Split(':')[0], typeof(Tkey));
-                var Value = Convert.ChangeType(keyValue.Split(':')[1], typeof(Tvalue));
+                var Key = (Tkey)Convert.ChangeType(keyValue.Split(separator)[0], typeof(Tkey));
+                var Value = Convert.ChangeType(keyValue.Split(separator)[1], typeof(Tvalue));
                 Console.WriteLine($"{Key}, {Value}");
                 this[Key] = (Tvalue)Value;
             }

@@ -9,15 +9,15 @@ namespace BinaryTreeDIct
 {
     public class FileReaderLoader : IReader
     {
-        public string LoadFile<TKey, TValue>(string filename, IDictionary<TKey, TValue> dictionary)
+        public string LoadFile<TKey, TValue>(string filename, IDictionary<TKey, TValue> dictionary, char separator)
         {
             var result = "";
             using (StreamWriter w = new StreamWriter(filename, false, Encoding.GetEncoding(1251)))
             {
                 foreach (var k in dictionary.Keys)
                 {
-                    w.WriteLine($"{k}:{dictionary[k]} ");
-                    result += $"{k}:{dictionary[k]} ";
+                    w.WriteLine($"{k}{separator}{dictionary[k]} ");
+                    result += $"{k}{separator}{dictionary[k]} ";
                 }
             }
             return result;
