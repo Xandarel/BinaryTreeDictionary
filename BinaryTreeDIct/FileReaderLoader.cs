@@ -9,12 +9,7 @@ namespace BinaryTreeDIct
 {
     public class DataSerializer : ISerializer
     {
-        char separator;
-        public DataSerializer(char separator)
-        {
-            this.separator = separator;
-        }
-        public string ReadDict<TKey, TValue>(IDictionary<TKey, TValue> dictionary)
+        public string ReadDict<TKey, TValue>(IDictionary<TKey, TValue> dictionary, char separator)
         {
             var result = "";
             foreach (var k in dictionary.Keys)
@@ -22,7 +17,7 @@ namespace BinaryTreeDIct
             return result;
         }
 
-        public void LoadToDict<TKey, TValue>(string result, IDictionary<TKey, TValue> dictionary)
+        public void LoadToDict<TKey, TValue>(string result, IDictionary<TKey, TValue> dictionary, char separator)
         {
             foreach (var keyValue in result.Split())
             {
@@ -40,7 +35,7 @@ namespace BinaryTreeDIct
             using (StreamWriter w = new StreamWriter(filename, false, Encoding.GetEncoding(1251)))
                     w.WriteLine(data);
         }
-        public string InFile(string filename)
+        public string FromFile(string filename)
         {
             var result = "";
             using (var fstream = new StreamReader(filename, Encoding.GetEncoding(1251)))

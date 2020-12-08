@@ -238,5 +238,17 @@ namespace BinaryTreeDIct
             }
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        public void ReadFromFile(ISerializer serializer, FileWork fileWorker, string filename, char separator)
+        {
+            var data = fileWorker.FromFile(filename);
+            serializer.LoadToDict(data, this, separator);
+        }
+
+        public void LoadToFile(ISerializer serializer, FileWork fileWorker, string filename, char separator)
+        {
+            var data = serializer.ReadDict(this, separator);
+            fileWorker.ToFile(filename, data);
+        }
     }
 }
