@@ -134,23 +134,9 @@ namespace TestTreeDict
             var BTD = new BinaryTreeDictionary<int, int>();
             var fileString = "11:22 14:19";
             var separator = ':';
-            var reader = new Mock<IReader>();
+            var FRL = new FileReaderLoader(separator);
+            FRL.ReadFile(fileString, BTD);
 
-            reader.Setup(a => a.ReadFile(It.IsAny<string>(), It.IsAny<IDictionary<int, int>>()))
-                .Callback(() => 
-                    { 
-                        foreach (var keyValue in fileString.Split())
-                        {
-                            var Key = (int)Convert.ChangeType(keyValue.Split(separator)[0], typeof(int));
-                            var Value = Convert.ChangeType(keyValue.Split(separator)[1], typeof(int));
-                            BTD[Key] = (int)Value;
-                        }
-                    }
-                )
-                .Returns(fileString);
-
-            var text = reader.Object;
-            Assert.AreEqual("11:22 14:19", text.ReadFile("aaa", BTD));
             Assert.AreEqual(22, BTD[11]);
             Assert.AreEqual(19, BTD[14]);
         }
@@ -162,18 +148,9 @@ namespace TestTreeDict
             BTD.Add(3, 2);
             BTD.Add(new KeyValuePair<int, int>(5, 11));
             var separator = ':';
-            var result = "";
-            var loader = new Mock<IReader>();
-            loader
-                .Setup(a => a.LoadFile(It.IsAny<string>(), It.IsAny<IDictionary<int, int>>()))
-                .Callback<string, IDictionary<int, int>>((a, b) =>
-                     {
-                         foreach (var k in b.Keys)
-                             result += $"{k}{separator}{b[k]} ";
-                     }
-                );
-                //.Returns(result);
-            loader.Object.LoadFile("aaa", BTD);
+            var FRL = new FileReaderLoader(separator);
+            var result = FRL.LoadFile(BTD);
+
             Assert.AreEqual($"0:{BTD[0]} 3:{BTD[3]} 5:{BTD[5]} ", result);
         }
     }
