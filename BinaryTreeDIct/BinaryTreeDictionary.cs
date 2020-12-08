@@ -238,35 +238,5 @@ namespace BinaryTreeDIct
             }
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
-        /// <summary>
-        /// Чтение из файла. Данные в файле должны иметь следующий формат:
-        /// ключ{separator} значение
-        /// </summary>
-        /// <param name="filename">имя файла</param>
-        /// <param name="reader">считыватель файла</param>
-        /// <param name="separator">разделитель</param>
-        public void ReadFile(string filename, IReader reader, char separator)
-        {
-            var data = reader.ReadFile(filename);
-            foreach(var keyValue in data.Split())
-            {
-                var Key = (Tkey)Convert.ChangeType(keyValue.Split(separator)[0], typeof(Tkey));
-                var Value = Convert.ChangeType(keyValue.Split(separator)[1], typeof(Tvalue));
-                Console.WriteLine($"{Key}, {Value}");
-                this[Key] = (Tvalue)Value;
-            }
-        }
-        /// <summary>
-        /// Запись в файл.Данные в файле будут иметь следующий формат:
-        /// ключ: значение
-        /// </summary>
-        /// <param name="filename">имя файла</param>
-        /// <param name="loader">Загрузчик в файл</param>
-        public string LoadFile(string filename, IReader loader)
-        {
-            var resText = loader.LoadFile(filename, this);
-            return resText;
-        }
     }
 }
