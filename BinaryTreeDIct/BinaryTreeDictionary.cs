@@ -151,7 +151,7 @@ namespace BinaryTreeDIct
             {
                 if (left == null && rigth == null) // Нет левого и правого дерева
                 {
-                    key = default;
+                    this.key = default;
                     value = default;
                 }
                 else if (left == null && rigth != null) // Только правое
