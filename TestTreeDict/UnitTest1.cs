@@ -134,8 +134,8 @@ namespace TestTreeDict
             var BTD = new BinaryTreeDictionary<int, int>();
             var fileString = "11:22 14:19";
             var separator = ':';
-            var FRL = new FileReaderLoader(separator);
-            FRL.ReadFile(fileString, BTD);
+            var FRL = new DataSerializer(separator);
+            FRL.LoadToDict(fileString, BTD);
 
             Assert.AreEqual(22, BTD[11]);
             Assert.AreEqual(19, BTD[14]);
@@ -148,8 +148,8 @@ namespace TestTreeDict
             BTD.Add(3, 2);
             BTD.Add(new KeyValuePair<int, int>(5, 11));
             var separator = ':';
-            var FRL = new FileReaderLoader(separator);
-            var result = FRL.LoadFile(BTD);
+            var FRL = new DataSerializer(separator);
+            var result = FRL.ReadDict(BTD);
 
             Assert.AreEqual($"0:{BTD[0]} 3:{BTD[3]} 5:{BTD[5]} ", result);
         }

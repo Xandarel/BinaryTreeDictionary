@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace BinaryTreeDIct
 {
-    public class FileReaderLoader : IReader
+    public class DataSerializer : ISerializer
     {
         char separator;
-        public FileReaderLoader(char separator)
+        public DataSerializer(char separator)
         {
             this.separator = separator;
         }
-        public string LoadFile<TKey, TValue>(IDictionary<TKey, TValue> dictionary)
+        public string ReadDict<TKey, TValue>(IDictionary<TKey, TValue> dictionary)
         {
             var result = "";
             foreach (var k in dictionary.Keys)
@@ -22,7 +22,7 @@ namespace BinaryTreeDIct
             return result;
         }
 
-        public void ReadFile<TKey, TValue>(string result, IDictionary<TKey, TValue> dictionary)
+        public void LoadToDict<TKey, TValue>(string result, IDictionary<TKey, TValue> dictionary)
         {
             foreach (var keyValue in result.Split())
             {
