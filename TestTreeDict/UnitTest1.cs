@@ -153,5 +153,33 @@ namespace TestTreeDict
 
             Assert.AreEqual($"0:{BTD[0]} 3:{BTD[3]} 5:{BTD[5]} ", result);
         }
+
+        [TestMethod]
+        public void LoadDataToFileFromDict()
+        {
+            var BTD = new BinaryTreeDictionary<int, int>();
+            BTD[0] = 1;
+            BTD.Add(3, 2);
+            BTD.Add(new KeyValuePair<int, int>(5, 11));
+            var separator = ':';
+            var FRL = new DataSerializer();
+            var fakeFile = new Mock<IFileWorker>();
+            fakeFile.Setup(x => x.ToFile(It.IsAny<string>(), It.IsAny<string>()));
+            BTD.LoadToFile(FRL, fakeFile.Object, "aaa", ':');
+            fakeFile.Verify(x => x.ToFile(It.IsAny<string>(), $"0:{BTD[0]} 3:{BTD[3]} 5:{BTD[5]} "));
+            fakeFile.VerifyAll();
+        }
+        [TestMethod]
+        public void ReadDataFromFileToDict()
+        {
+            var BTD = new BinaryTreeDictionary<int, int>();
+            var FRL = new DataSerializer();
+            var fakeFile = new Mock<IFileWorker>();
+            fakeFile.Setup(x => x.FromFile(It.IsAny<string>())).Returns("11:22 14:19");
+            var separator = ':';
+            BTD.ReadFromFile(FRL, fakeFile.Object, "aaa", separator);
+            Assert.AreEqual(22, BTD[11]);
+            Assert.AreEqual(19, BTD[14]);
+        }
     }
 }

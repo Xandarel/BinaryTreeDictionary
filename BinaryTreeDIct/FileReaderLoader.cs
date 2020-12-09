@@ -27,8 +27,7 @@ namespace BinaryTreeDIct
             }
         }
     }
-     
-    public class FileWork
+    public class FileWork :IFileWorker
     {
         public void ToFile(string filename, string data)
         {
